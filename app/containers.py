@@ -7,7 +7,7 @@ import boto3
 import flask
 
 
-import flaskapp as app
+import flaskapp as flaskapp
 import services as services
 import views.views as views
 
@@ -57,7 +57,7 @@ class Application(containers.DeclarativeContainer):
     """IoC container of application component providers."""
 
     main = providers.Callable(
-        app.run_app,
+        flaskapp.run_app,
         app=FlaskApp.app,
         host=Core.config.flask_settings.host,
         port=Core.config.flask_settings.port
