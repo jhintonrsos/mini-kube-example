@@ -5,14 +5,12 @@ import sqlite3
 
 import boto3
 import flask
+import dependency_injector.containers as containers
+import dependency_injector.providers as providers
 
 
 import flaskapp as flaskapp
 import services as services
-import views.views as views
-
-import dependency_injector.containers as containers
-import dependency_injector.providers as providers
 
 
 class Core(containers.DeclarativeContainer):
@@ -20,7 +18,7 @@ class Core(containers.DeclarativeContainer):
 
     config = providers.Configuration('config')
 
-    logger = providers.Singleton(logging.Logger, name='example')
+    logger = providers.Singleton(logging.Logger, name='mini-kube-example')
 
 
 class Gateways(containers.DeclarativeContainer):

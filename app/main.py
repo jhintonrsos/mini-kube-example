@@ -23,7 +23,12 @@ if __name__ == '__main__':
             }
         }
     )
-    containers.Core.logger().addHandler(logging.StreamHandler(sys.stdout))
+
+    console = logging.StreamHandler()
+    console.setFormatter(
+        logging.Formatter('%(name)s:: %(levelname)-1s [%(filename)s:%(lineno)d] %(message)s')
+    )
+    containers.Core.logger().addHandler(console)
 
     # Run application:
     containers.Application.main()
