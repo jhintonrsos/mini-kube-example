@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#--image-pull-policy=Never
+
 set -e
 
 eval $(minikube docker-env)
