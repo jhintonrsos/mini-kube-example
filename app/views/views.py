@@ -1,16 +1,37 @@
 """Applications views"""
 
 import flask.views as flask_views
-import injector
-import logging
 
 
 class RootView(flask_views.MethodView):
 
-    @injector.inject
-    def __init__(self, logger: logging.Logger):
-        self.logger = logger
+    def __init__(self, **kwargs):
+        self.logger = kwargs.get('logger')
 
     def get(self):
         self.logger.info('Hello from injected logger')
-        return "Hello World from RootView!"
+
+        msg = """
+        <p>Hello World from RootView!</p>
+        <br>
+        <a href="/second">Next Page</a>
+        """
+
+        return msg
+
+
+class SecondView(flask_views.MethodView):
+
+    def __init__(self, **kwargs):
+        self.logger = kwargs.get('logger')
+
+    def get(self):
+        self.logger.info('Hello from injected logger')
+
+        msg = """
+        <p>Hello World from RootView!</p>
+        <br>
+        <a href="/">Previous Page</a>
+        """
+
+        return msg

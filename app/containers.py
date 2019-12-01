@@ -51,6 +51,20 @@ class FlaskApp(containers.DeclarativeContainer):
     )
 
 
+class FlaskViews(containers.DeclarativeContainer):
+    """Container for flask views"""
+
+    root_view = providers.Callable(
+        flaskapp.root_view,
+        logger=Core.logger
+    )
+
+    second_view = providers.Callable(
+        flaskapp.second_view,
+        logger=Core.logger
+    )
+
+
 class Application(containers.DeclarativeContainer):
     """IoC container of application component providers."""
 
@@ -58,5 +72,9 @@ class Application(containers.DeclarativeContainer):
         flaskapp.run_app,
         app=FlaskApp.app,
         host=Core.config.flask_settings.host,
-        port=Core.config.flask_settings.port
+        port=Core.config.flask_settings.port,
+        app_views=[
+            FlaskViews.root_view,
+            FlaskViews.second_view
+        ]
     )

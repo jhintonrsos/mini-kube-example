@@ -1,6 +1,5 @@
 """Run example application."""
 
-import sys
 import logging
 
 import containers
@@ -26,7 +25,9 @@ if __name__ == '__main__':
 
     console = logging.StreamHandler()
     console.setFormatter(
-        logging.Formatter('%(name)s:: %(levelname)-1s [%(filename)s:%(lineno)d] %(message)s')
+        logging.Formatter(
+            '%(name)s:: %(levelname)-1s [%(filename)s:%(lineno)d] %(message)s'
+        )
     )
     containers.Core.logger().addHandler(console)
 

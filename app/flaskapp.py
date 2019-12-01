@@ -1,30 +1,33 @@
 """Main entrypoint for application"""
 
-import flask_injector
-import injector
-
 import views.views as views
-import flask_inject_modules as fim
 
 
-def run_app(app, host, port):
+def root_view(logger):
+    return '/', views.RootView.as_view(
+            name='root_view',
+            logger=logger
+        )
+
+
+def second_view(logger):
+    return '/second', views.SecondView.as_view(
+            name='second_view',
+            logger=logger
+        )
+
+
+def run_app(app, host, port, app_views):
     """Run flask application
 
     :param app: app
     :param str host: hot
     :param int port: port
+    :param list app_views: app views
     """
 
-    app.add_url_rule('/', view_func=views.RootView.as_view('root_view'))
-
-    # can also injection modules as a callable
-    # flask_injector.FlaskInjector(app=app, modules=[fim.configure])
-
-    flask_injector.FlaskInjector(
-        app=app,
-        injector=injector.Injector(
-            [fim.AppModule()]
-        )
-    )
+    for view in app_views:
+        path, view_func = view()
+        app.add_url_rule(path, view_func=view_func)
 
     app.run(host=host, port=port)
