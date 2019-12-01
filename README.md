@@ -14,7 +14,7 @@ This project demonstrates the use of the following:
 1. Just run the flask app like any other python script. This requires that your build
 environment and python environment are setup correctly (not ideal)
     - `pip install -r requirements.txt`
-    - `python main.py`
+    - `python app/main.py`
 
 ### Run the application in docker (better way)
 
