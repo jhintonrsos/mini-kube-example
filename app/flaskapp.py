@@ -1,20 +1,9 @@
 """Main entrypoint for application"""
 
-import views.views as views
+import collections as collections
 
 
-def root_view(logger):
-    return '/', views.RootView.as_view(
-            name='root_view',
-            logger=logger
-        )
-
-
-def second_view(logger):
-    return '/second', views.SecondView.as_view(
-            name='second_view',
-            logger=logger
-        )
+FlaskView = collections.namedtuple('FlaskView', 'rule view_func')
 
 
 def run_app(app, host, port, app_views):
@@ -27,7 +16,7 @@ def run_app(app, host, port, app_views):
     """
 
     for view in app_views:
-        path, view_func = view()
-        app.add_url_rule(path, view_func=view_func)
+        url_rule = view()
+        app.add_url_rule(url_rule.rule, view_func=url_rule.view_func)
 
     app.run(host=host, port=port)

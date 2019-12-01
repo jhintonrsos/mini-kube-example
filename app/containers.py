@@ -11,6 +11,7 @@ import dependency_injector.providers as providers
 
 import flaskapp as flaskapp
 import services as services
+import views.views as views
 
 
 class Core(containers.DeclarativeContainer):
@@ -54,14 +55,28 @@ class FlaskApp(containers.DeclarativeContainer):
 class FlaskViews(containers.DeclarativeContainer):
     """Container for flask views"""
 
-    root_view = providers.Callable(
-        flaskapp.root_view,
+    root_view_func = providers.Callable(
+        views.RootView.as_view,
+        name='root_view',
         logger=Core.logger
     )
 
-    second_view = providers.Callable(
-        flaskapp.second_view,
+    second_view_func = providers.Callable(
+        views.SecondView.as_view,
+        name='second_view',
         logger=Core.logger
+    )
+
+    root_view = providers.Callable(
+        flaskapp.FlaskView,
+        rule='/',
+        view_func=root_view_func
+    )
+
+    second_view = providers.Callable(
+        flaskapp.FlaskView,
+        rule='/second',
+        view_func=second_view_func
     )
 
 
