@@ -9,7 +9,7 @@ This project demonstrates the use of the following:
 
 ## Instructions (Requires python 3.5+)
 
-### Run the application outside of kubenertes and docker (not ideal)
+### Run the application outside of kubernetes and docker (not ideal)
 
 1. Just run the flask app like any other python script. This requires that your build
 environment and python environment are setup correctly
